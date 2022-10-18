@@ -2,26 +2,39 @@ package com.uxstate.catfacts.presentation.screens.overview_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.uxstate.catfacts.R
+import com.uxstate.catfacts.util.LocalSpacing
 
 @Composable
-fun TopRow(modifier: Modifier = Modifier, onClick: ()-> Unit) {
+fun TopRow(modifier: Modifier = Modifier, lastPage: Int, onClick: () -> Unit) {
 
+    val spacing = LocalSpacing.current
     Row(
-            modifier = modifier,
+            modifier = modifier.padding(spacing.spaceSmall),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Button(onClick = onClick, shape = RoundedCornerShape()) {
+        //Button
+        Button(onClick = onClick, shape = RoundedCornerShape(spacing.spaceMedium)) {
 
-
+            Text(text = stringResource(R.string.refresh_label), style = MaterialTheme.typography.h6)
         }
+
+        //Page Text
+        Text(text = "Last Loaded Page: $lastPage", style = MaterialTheme.typography.h5)
+
 
     }
 
@@ -31,5 +44,5 @@ fun TopRow(modifier: Modifier = Modifier, onClick: ()-> Unit) {
 @Preview
 @Composable
 fun TopRowPreview() {
-    TopRow()
+    TopRow(modifier = Modifier.fillMaxWidth(), lastPage = 3) {}
 }

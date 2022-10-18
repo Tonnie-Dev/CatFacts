@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CatFacts</string>
+    <string name="refresh_label">Refresh</string>
 </resources>
