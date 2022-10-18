@@ -5,5 +5,5 @@ import com.uxstate.catfacts.domain.model.ApiResponse
 interface CatRepository {
 
 
-   suspend fun getCatFacts():ApiResponse
+   suspend fun getCatFacts(page:Int):ApiResponse
 }
