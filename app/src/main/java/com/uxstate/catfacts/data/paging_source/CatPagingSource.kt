@@ -8,7 +8,10 @@ import com.uxstate.catfacts.util.CAT_FACTS_STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException
 
-class CatPagingSource(private val repository: CatRepository) : PagingSource<Int, CatFact>() {
+class CatPagingSource(
+    private val repository: CatRepository,
+    private val pageUpdater: (page: Int) -> Unit
+) : PagingSource<Int, CatFact>() {
 
 
     /*takes a PagingState object as a parameter and returns
@@ -46,17 +49,11 @@ class CatPagingSource(private val repository: CatRepository) : PagingSource<Int,
             /* params.key comes 4 different places */
             val position = params.key ?: CAT_FACTS_STARTING_PAGE_INDEX
 
-
-
-
+            //update page
+            pageUpdater(position)
 
             val response = repository.getCatFacts(page = position)
             val data = response.data
-
-
-
-
-
 
 
             val prevKey = if (position == CAT_FACTS_STARTING_PAGE_INDEX)
