@@ -9,7 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.uxstate.catfacts.presentation.screens.overview_screen.components.ErrorItem
+import com.uxstate.catfacts.presentation.screens.overview_screen.components.FactRow
 import com.uxstate.catfacts.presentation.screens.overview_screen.components.LoadingItem
 import com.uxstate.catfacts.presentation.screens.overview_screen.components.TopRow
 
@@ -28,14 +30,36 @@ fun OverviewScreen(viewModel: CatViewModel = hiltViewModel()) {
 
         LazyColumn(contentPadding = values,
                 content = {
-                    when(facts.loadState.refresh){
 
+                    //Refresh
+                    when(facts.loadState.refresh){
                         is LoadState.Loading -> LoadingItemExtension()
-                        is LoadState.NotLoading -> {}
-                        is LoadState.Error -> {}
+                        is LoadState.NotLoading -> Unit
+                        is LoadState.Error -> ErrorItemExtension()
                     }
 
+                    //Prepend
+                    when(facts.loadState.prepend){
+                        is LoadState.Loading -> LoadingItemExtension()
+                        is LoadState.NotLoading -> Unit
+                        is LoadState.Error -> ErrorItemExtension()
+                    }
 
+                    //Append
+                    when(facts.loadState.append){
+                    is LoadState.Loading -> LoadingItemExtension()
+                    is LoadState.NotLoading -> Unit
+                    is LoadState.Error -> ErrorItemExtension()
+                }
+
+                    items(facts){ fact ->
+
+                        fact?.let {
+
+                            FactRow(fact = it.fact)
+                        }
+
+                    }
 
                 })
 
