@@ -21,7 +21,6 @@ fun CatFact.toDto(): CatFactDTO {
 //response from dto to model
 fun ApiResponseDTO.toModel(): ApiResponse {
 
-
     return ApiResponse(
             data = this.data.map { it.toModel() },
             currentPage = this.currentPage,
