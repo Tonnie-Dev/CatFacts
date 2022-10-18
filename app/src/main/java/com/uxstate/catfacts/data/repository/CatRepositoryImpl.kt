@@ -6,7 +6,7 @@ import com.uxstate.catfacts.domain.model.ApiResponse
 import com.uxstate.catfacts.domain.repository.CatRepository
 import javax.inject.Inject
 
-class CatRepositoryImp @Inject constructor(private val api:CatAPI) :CatRepository{
+class CatRepositoryImpl @Inject constructor(private val api:CatAPI) :CatRepository{
 
 
     override suspend fun getCatFacts(page:Int): ApiResponse {
