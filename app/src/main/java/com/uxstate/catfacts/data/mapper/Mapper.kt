@@ -7,13 +7,16 @@ import com.uxstate.catfacts.domain.model.CatFact
 
 
 //fact from dto to model
-
 fun CatFactDTO.toModel():CatFact {
 
     return CatFact( fact = this.fact, length = this.length)
 }
 
 //fact from model to dto
+fun CatFact.toDto():CatFactDTO {
+
+    return CatFactDTO( fact = this.fact, length = this.length)
+}
 
 //response from dto to model
 fun ApiResponseDTO.toModel():ApiResponse {
