@@ -10,6 +10,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.catfacts.util.LocalSpacing
 
 @Composable
@@ -17,10 +19,10 @@ fun FactRow(modifier: Modifier = Modifier, fact: String) {
     val spacing = LocalSpacing.current
     Row(
             modifier = modifier
-                    .padding(spacing.spaceMedium)
+                    .padding(spacing.spaceExtraSmall)
                     .border(
                             width = spacing.spacingTwoDp,
-                            color = MaterialTheme.colors.primary,
+                            color = Color.Gray,
                             shape = CutCornerShape(spacing.spaceSmall)
                     )
     ) {
@@ -28,8 +30,23 @@ fun FactRow(modifier: Modifier = Modifier, fact: String) {
                 text = fact, modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
+                .padding(spacing.spaceMedium)
         )
     }
 
 
+
+
+}
+
+
+@Preview
+@Composable
+fun FactRowPreview() {
+FactRow(fact = """
+    
+    Cat are beautiful and belong to the feline family from the 
+    larger mammal family.Their young are called kittens and they
+    have whisker. They like milk and meat.They are nocturnal animals
+""".trimIndent())
 }
