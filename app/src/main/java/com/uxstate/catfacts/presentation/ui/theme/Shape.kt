@@ -1,4 +1,4 @@
-package com.uxstate.catfacts.ui.theme
+package com.uxstate.catfacts.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

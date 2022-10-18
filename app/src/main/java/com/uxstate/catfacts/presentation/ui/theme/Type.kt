@@ -1,4 +1,4 @@
-package com.uxstate.catfacts.ui.theme
+package com.uxstate.catfacts.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
