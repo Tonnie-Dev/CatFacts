@@ -43,11 +43,21 @@ class CatPagingSource(private val repository: CatRepository) : PagingSource<Int,
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CatFact> {
 
         return try {
-            /* this is not the page number, it is inherited from
-               getRefreshKey() - if null the position is set to 1*/
+            /* params.key comes 4 different places */
             val position = params.key ?: CAT_FACTS_STARTING_PAGE_INDEX
+
+
+
+
+
             val response = repository.getCatFacts(page = position)
             val data = response.data
+
+
+
+
+
+
 
             val prevKey = if (position == CAT_FACTS_STARTING_PAGE_INDEX)
                 null
