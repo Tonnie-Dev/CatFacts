@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.uxstate.catfacts.presentation.screens.overview_screen.components.ErrorItem
 import com.uxstate.catfacts.presentation.screens.overview_screen.components.LoadingItem
 import com.uxstate.catfacts.presentation.screens.overview_screen.components.TopRow
 
@@ -29,7 +30,7 @@ fun OverviewScreen(viewModel: CatViewModel = hiltViewModel()) {
                 content = {
                     when(facts.loadState.refresh){
 
-                        is LoadState.Loading -> {}
+                        is LoadState.Loading -> LoadingItemExtension()
                         is LoadState.NotLoading -> {}
                         is LoadState.Error -> {}
                     }
@@ -43,10 +44,18 @@ fun OverviewScreen(viewModel: CatViewModel = hiltViewModel()) {
 }
 
 
-fun LazyListScope.LoadItemExtension(){
+fun LazyListScope.LoadingItemExtension(){
 
   item {
 
       LoadingItem()
   }
+}
+
+fun LazyListScope.ErrorItemExtension(){
+
+    item {
+
+       ErrorItem()
+    }
 }
