@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -25,7 +26,7 @@ fun FactRow(modifier: Modifier = Modifier, fact: String) {
                     .border(
                             width = spacing.spacingTwoDp,
                             color = Color.Gray,
-                            shape = CutCornerShape(spacing.spaceSmall)
+                            shape = RoundedCornerShape(spacing.spaceSmall)
                     )
     ) {
         Text(
