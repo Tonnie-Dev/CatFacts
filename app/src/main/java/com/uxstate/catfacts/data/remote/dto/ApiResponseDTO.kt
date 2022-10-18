@@ -10,5 +10,5 @@ data class ApiResponseDTO(
     val data: List<Data>,
     @Json(name = "last_page")
     val lastPage: Int,
-   
+
 )
