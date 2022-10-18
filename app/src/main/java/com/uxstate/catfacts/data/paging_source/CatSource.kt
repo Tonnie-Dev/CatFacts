@@ -9,8 +9,34 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class CatPagingSource(private val repository: CatRepository) : PagingSource<Int, CatFact>() {
+
+
+    /*takes a PagingState object as a parameter and returns
+   the key to pass into the load() method when the data is
+    refreshed or invalidated after the initial load. */
+
     override fun getRefreshKey(state: PagingState<Int, CatFact>): Int? {
-        TODO("Not yet implemented")
+
+        /*
+       This will always start loading from the beginning.
+       Same effect as return AT_FACTS_STARTING_PAGE_INDEX.
+       */
+        return null
+        //If you want the list to resume at page 5, return 5, etc..
+
+        /*//get the anchor page from anchor position
+        return state.anchorPosition?.let { anchorPosition ->
+
+            //anchorPageState:LoadState.Page<Int,CatFact>?
+            val anchorPageState = state.closestPageToPosition(anchorPosition)
+
+            //anchorPage:Int?
+            val anchorPage = anchorPageState?.prevKey?.plus(1)
+                ?: anchorPageState?.nextKey?.minus(1)
+
+            //return the anchor page now
+            anchorPage
+        }*/
     }
 
     //called by the Paging library to asynchronously fetch data to be displayed
@@ -42,7 +68,7 @@ class CatPagingSource(private val repository: CatRepository) : PagingSource<Int,
         } catch (e: HttpException) {
             LoadResult.Error(throwable = e)
 
-        }catch (e: IOException) {
+        } catch (e: IOException) {
             LoadResult.Error(throwable = e)
         }
 
