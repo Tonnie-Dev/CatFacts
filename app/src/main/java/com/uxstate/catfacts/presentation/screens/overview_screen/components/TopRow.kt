@@ -23,7 +23,7 @@ fun TopRow(modifier: Modifier = Modifier, pos:Int, prev:Int?, next:Int?, onClick
     Row(
             modifier = modifier.padding(spacing.spaceSmall),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceEvenly
     ) {
 
         //Button
@@ -33,7 +33,7 @@ fun TopRow(modifier: Modifier = Modifier, pos:Int, prev:Int?, next:Int?, onClick
         }
 
         //Page Text
-        Text(text = "pos: $pos  prev: $prev, next: $next", style = MaterialTheme.typography.h5)
+        Text(text = "Pos: $pos Prev: $prev Next: $next", style = MaterialTheme.typography.h5)
 
 
     }

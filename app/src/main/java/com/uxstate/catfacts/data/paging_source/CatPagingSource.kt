@@ -1,5 +1,6 @@
 package com.uxstate.catfacts.data.paging_source
 
+import android.provider.SyncStateContract
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.uxstate.catfacts.domain.model.CatFact
@@ -43,7 +44,7 @@ class CatPagingSource(
 
        // return state.anchorPosition
 
-        return null
+        return CAT_FACTS_STARTING_PAGE_INDEX
     }
 
     //called by the Paging library to asynchronously fetch data to be displayed
