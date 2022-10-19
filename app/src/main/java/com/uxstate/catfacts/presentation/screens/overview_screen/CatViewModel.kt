@@ -18,14 +18,30 @@ class CatViewModel @Inject constructor(private val repository: CatRepository) : 
     private val _currentPage = MutableStateFlow(0)
     val currentPage = _currentPage.asStateFlow()
 
+    private val _prevKey = MutableStateFlow<Int?>(null)
+    val prevKey = _prevKey.asStateFlow()
+
+    private val _nextKey = MutableStateFlow<Int?>(null)
+    val nextKey = _nextKey.asStateFlow()
+
     /*Pager is responsible for incrementally pulling chunks of data
     from the PagingSource as requested by the UI.*/
 
 
     //instantiate a Pager instance
     val pager =
-        Pager(config = PagingConfig(pageSize = 1)) //1st Arg
-        { CatPagingSource(repository){_currentPage.value = it} } // 2nd Arg - PagingSource
+        Pager(config = PagingConfig(pageSize = 10)) //1st Arg
+        { CatPagingSource(repository){ position, prev, next->
+
+            _currentPage.value = position
+            _prevKey.value = prev
+            _nextKey.value = next
+
+        }
+
+
+
+        } // 2nd Arg - PagingSource
                 .flow                   //access flow property
                 .cachedIn(viewModelScope)//cache loaded data in VM
 

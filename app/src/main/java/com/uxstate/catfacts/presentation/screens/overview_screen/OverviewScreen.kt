@@ -5,6 +5,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
@@ -22,9 +24,14 @@ fun OverviewScreen(viewModel: CatViewModel = hiltViewModel()) {
     //collect paging data from viewModel
     val facts = viewModel.pager.collectAsLazyPagingItems()
 
-    Scaffold(topBar = {
-        TopRow(lastPage = 3, modifier = Modifier.fillMaxWidth()) {
+    //collect current page state
+    val currentPage by viewModel.currentPage.collectAsState()
+    val prevPage by viewModel.prevKey.collectAsState()
+    val nextPage by viewModel.nextKey.collectAsState()
 
+    Scaffold(topBar = {
+        TopRow( modifier = Modifier.fillMaxWidth(), pos = currentPage, prev = prevPage, next= nextPage) {
+            facts.refresh()
         }
     }) { values ->
 
@@ -32,27 +39,27 @@ fun OverviewScreen(viewModel: CatViewModel = hiltViewModel()) {
                 content = {
 
                     //Refresh
-                    when(facts.loadState.refresh){
-                        is LoadState.Loading -> LoadingItemExtension()
+                    when (facts.loadState.refresh) {
+                        is LoadState.Loading -> loadingItemExtension()
                         is LoadState.NotLoading -> Unit
-                        is LoadState.Error -> ErrorItemExtension()
+                        is LoadState.Error -> errorItemExtension()
                     }
 
                     //Prepend
-                    when(facts.loadState.prepend){
-                        is LoadState.Loading -> LoadingItemExtension()
+                    when (facts.loadState.prepend) {
+                        is LoadState.Loading -> loadingItemExtension()
                         is LoadState.NotLoading -> Unit
-                        is LoadState.Error -> ErrorItemExtension()
+                        is LoadState.Error -> errorItemExtension()
                     }
 
                     //Append
-                    when(facts.loadState.append){
-                    is LoadState.Loading -> LoadingItemExtension()
-                    is LoadState.NotLoading -> Unit
-                    is LoadState.Error -> ErrorItemExtension()
-                }
+                    when (facts.loadState.append) {
+                        is LoadState.Loading -> loadingItemExtension()
+                        is LoadState.NotLoading -> Unit
+                        is LoadState.Error -> errorItemExtension()
+                    }
 
-                    items(facts){ fact ->
+                    items(facts) { fact ->
 
                         fact?.let {
 
@@ -68,18 +75,18 @@ fun OverviewScreen(viewModel: CatViewModel = hiltViewModel()) {
 }
 
 
-fun LazyListScope.LoadingItemExtension(){
-
-  item {
-
-      LoadingItem()
-  }
-}
-
-fun LazyListScope.ErrorItemExtension(){
+fun LazyListScope.loadingItemExtension() {
 
     item {
 
-       ErrorItem()
+        LoadingItem()
+    }
+}
+
+fun LazyListScope.errorItemExtension() {
+
+    item {
+
+        ErrorItem()
     }
 }

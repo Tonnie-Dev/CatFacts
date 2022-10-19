@@ -10,7 +10,7 @@ import java.io.IOException
 
 class CatPagingSource(
     private val repository: CatRepository,
-    private val pageUpdater: (page: Int) -> Unit
+    private val pageUpdater: (Int,Int?, Int?) -> Unit
 ) : PagingSource<Int, CatFact>() {
 
 
@@ -24,11 +24,11 @@ class CatPagingSource(
        This will always start loading from the beginning.
        Same effect as return AT_FACTS_STARTING_PAGE_INDEX.
        */
-        return null
+       // return null
         //If you want the list to resume at page 5, return 5, etc..
 
-        /*//get the anchor page from anchor position
-        return state.anchorPosition?.let { anchorPosition ->
+        //get the anchor page from anchor position
+        /*return state.anchorPosition?.let { anchorPosition ->
 
             //anchorPageState:LoadState.Page<Int,CatFact>?
             val anchorPageState = state.closestPageToPosition(anchorPosition)
@@ -40,6 +40,10 @@ class CatPagingSource(
             //return the anchor page now
             anchorPage
         }*/
+
+       // return state.anchorPosition
+
+        return null
     }
 
     //called by the Paging library to asynchronously fetch data to be displayed
@@ -49,8 +53,7 @@ class CatPagingSource(
             /* params.key comes 4 different places */
             val position = params.key ?: CAT_FACTS_STARTING_PAGE_INDEX
 
-            //update page
-            pageUpdater(position)
+
 
             val response = repository.getCatFacts(page = position)
             val data = response.data
@@ -65,6 +68,9 @@ class CatPagingSource(
                 null
             else
                 position.plus(1)
+
+            //update page
+            pageUpdater(position,prevKey,nextKey)
 
             //construct and return the LoadResult.Page
             LoadResult.Page(

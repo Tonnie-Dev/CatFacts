@@ -17,7 +17,7 @@ import com.uxstate.catfacts.R
 import com.uxstate.catfacts.util.LocalSpacing
 
 @Composable
-fun TopRow(modifier: Modifier = Modifier, lastPage: Int, onClick: () -> Unit) {
+fun TopRow(modifier: Modifier = Modifier, pos:Int, prev:Int?, next:Int?, onClick: () -> Unit) {
 
     val spacing = LocalSpacing.current
     Row(
@@ -33,7 +33,7 @@ fun TopRow(modifier: Modifier = Modifier, lastPage: Int, onClick: () -> Unit) {
         }
 
         //Page Text
-        Text(text = "Last Loaded Page: $lastPage", style = MaterialTheme.typography.h5)
+        Text(text = "pos: $pos  prev: $prev, next: $next", style = MaterialTheme.typography.h5)
 
 
     }
@@ -44,5 +44,5 @@ fun TopRow(modifier: Modifier = Modifier, lastPage: Int, onClick: () -> Unit) {
 @Preview
 @Composable
 fun TopRowPreview() {
-    TopRow(modifier = Modifier.fillMaxWidth(), lastPage = 3) {}
+    TopRow(modifier = Modifier.fillMaxWidth(), 3,1,3) {}
 }
